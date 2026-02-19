@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+admin.site.site_header = 'Мой интернет магазин'
+admin.site.index_title = 'Добро пожаловать в панель управления'
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
