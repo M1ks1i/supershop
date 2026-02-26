@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Product, Category
+from .models import Product, Category, Review
 
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 1
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -11,6 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = [ReviewInline]
     list_display = ['name','price','in_stock','created_at','category','colored']
     list_filter = ['in_stock','created_at','category']
     autocomplete_fields = ['category']

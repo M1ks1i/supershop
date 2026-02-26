@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Каталог{% endblock %}
+
+{% block content %}
+
+{% include "components/banner.html" %}
+{% include "components/filters.html" %}
+
+<section class="catalog">
+    <div class="catalog-grid">
+        {% for product in products %}
+            {% include "components/product_card.html" %}
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

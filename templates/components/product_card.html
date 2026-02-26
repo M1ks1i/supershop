@@ -1,0 +1,19 @@
+<div class="product-card">
+    <div class="product-card__img">
+        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+        {% if product.discount %}
+            <span class="badge-red">-{{ product.discount }}%</span>
+        {% endif %}
+    </div>
+
+    <h3 class="product-card__title">{{ product.title }}</h3>
+
+    <div class="product-card__price">
+        <span class="price-new">{{ product.price }} €</span>
+        {% if product.old_price %}
+            <span class="price-old">{{ product.old_price }} €</span>
+        {% endif %}
+    </div>
+
+    <button class="btn btn-green">В корзину</button>
+</div>
