@@ -17,6 +17,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     in_stock = models.BooleanField(default=True,verbose_name='В налиичии ли товар')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    image = models.ImageField(
+        upload_to='productes/',
+        blank=True,
+        null=True,
+        default='img/def_img.csv',
+        verbose_name='Photo'
+    )
 
     class Meta:
         verbose_name = 'Товар'

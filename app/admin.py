@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ReviewInline]
-    list_display = ['name','price','in_stock','created_at','category','colored']
+    list_display = ['name','image','price','in_stock','created_at','category','colored']
     list_filter = ['in_stock','created_at','category']
     autocomplete_fields = ['category']
     search_fields =  ['discription','name']

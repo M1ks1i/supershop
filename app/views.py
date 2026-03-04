@@ -1,3 +1,10 @@
+from itertools import product
+
 from django.shortcuts import render
 
-# Create your views here.
+from app.models import Product
+
+
+def homepage(request):
+    products = Product.objects.all()
+    return render(request, 'catalog.html', context={'products':products})
