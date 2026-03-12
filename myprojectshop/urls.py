@@ -14,15 +14,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from itertools import product
+
 from django.contrib import admin
 from django.urls import path
 from app import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 admin.site.site_header = 'Мой интернет магазин'
 admin.site.index_title = 'Добро пожаловать в панель управления'
 
 
 urlpatterns = [
+    # Главная
+    path('', views.index, name='index'),
+
+    # Список всех категорий
+    path('categories/', views.category_list, name='category_list'),
+
+    # Товары категории
+    path('category/<int:category_id>/', views.product_list, name='product_list'),
+
+    # Страница товара
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+
+    # Авторизация
+    path('login/', views.login_view, name='login'),
+
+    # Регистрация
+    path('register/', views.register_view, name='register'),
+
+    # Админ-панель Django
     path('admin/', admin.site.urls),
-    path('', views.homepage, name='homepage')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

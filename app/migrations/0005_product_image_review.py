@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='image',
-            field=models.ImageField(blank=True, default='img/def_img.csv', null=True, upload_to='productes/'),
+            field=models.ImageField(blank=True, default='img/def_img.svg', null=True, upload_to='productes/'),
         ),
         migrations.CreateModel(
             name='Review',

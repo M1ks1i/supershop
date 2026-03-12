@@ -1,24 +1,82 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="h-full bg-neutral-950 text-neutral-200">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Магазин{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Настройка цветовой палитры -->
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    accentGreen: '#29ff8f',
+                    accentPurple: '#9b4dff',
+                    accentBlue: '#4dbdff',
+                    accentYellow: '#ffd744',
+                }
+            }
+        }
+    }
+    </script>
+
 </head>
 
-<body>
-<div class="page">
+<body class="min-h-full flex flex-col">
 
-    {% include "components/header.html" %}
+<!-- TOP NAV -->
+<header class="border-b border-neutral-800 bg-neutral-900/80 backdrop-blur-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
 
-    <main class="container">
-        {% block content %}{% endblock %}
-    </main>
+        <!-- Logo -->
+        <a href="/" class="text-xl font-bold text-accentGreen tracking-wide hover:text-accentYellow transition">
+            TechMarket
+        </a>
 
-    {% include "components/footer.html" %}
+        <!-- Categories -->
+        <nav class="hidden md:flex gap-6 text-neutral-300">
+            {% for cat in categories %}
+            <a href="{% url 'product_list' cat.id %}" class="hover:text-accentBlue transition">
+                {{ cat.name }}
+            </a>
+            {% endfor %}
+        </nav>
 
-</div>
+        <!-- SEARCH -->
+        <form method="GET" action="{% url 'index' %}" class="hidden md:block">
+            <input name="q"
+                   placeholder="Поиск..."
+                   class="px-3 py-1.5 w-52 rounded bg-neutral-800 border border-neutral-700 focus:border-accentPurple outline-none transition">
+        </form>
+
+        <!-- RIGHT BUTTONS -->
+        <div class="flex gap-3">
+            <a href="{% url 'login' %}"
+               class="px-3 py-1.5 rounded bg-accentPurple hover:bg-accentGreen text-black transition">Войти</a>
+
+            <a href="{% url 'register' %}"
+               class="px-3 py-1.5 rounded border border-neutral-600 hover:border-accentBlue transition">Гость</a>
+
+            <a href="/admin/"
+               class="px-3 py-1.5 rounded bg-neutral-800 border border-neutral-700 hover:border-accentYellow transition">
+                Админ
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main class="flex-1">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer class="mt-12 py-8 border-t border-neutral-800 text-center text-neutral-500">
+    TechMarket © 2026
+</footer>
+
 </body>
 </html>

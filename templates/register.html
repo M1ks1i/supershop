@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<section class="max-w-md mx-auto mt-20 px-4">
+    <h1 class="text-3xl font-bold mb-6 text-center">Регистрация</h1>
+
+    <form method="post" class="bg-neutral-900 p-6 rounded-xl border border-neutral-800 shadow-xl">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="mt-4 w-full px-4 py-2 bg-accentGreen hover:bg-accentYellow text-black rounded transition">
+            Зарегистрироваться
+        </button>
+    </form>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'login' %}" class="hover:text-accentBlue transition">Уже есть аккаунт?</a>
+    </div>
+</section>
+{% endblock %}

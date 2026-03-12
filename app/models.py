@@ -21,7 +21,6 @@ class Product(models.Model):
         upload_to='productes/',
         blank=True,
         null=True,
-        default='img/def_img.csv',
         verbose_name='Photo'
     )
 
@@ -37,3 +36,4 @@ class Review(models.Model):
     author = models.CharField(max_length=100)
     text = models.TextField()
     rating = models.IntegerField()
+

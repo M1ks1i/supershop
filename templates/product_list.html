@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 mt-10">
+    <h1 class="text-3xl font-bold mb-8">{{ category.name }}</h1>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+        {% for product in products %}
+        <a href="{% url 'product_detail' product.id %}"
+           class="rounded-xl bg-neutral-900 border border-neutral-800 hover:border-accentBlue p-4 shadow-xl transition">
+
+            <img src="{{ product.image.url }}" class="rounded-lg mb-4">
+
+            <h3 class="font-semibold text-lg">{{ product.name }}</h3>
+
+            <p class="mt-2 font-bold text-accentYellow">{{ product.price }} ₽</p>
+
+            {% if product.in_stock %}
+                <p class="text-accentGreen mt-1">В наличии</p>
+            {% else %}
+                <p class="text-red-500 mt-1">Нет в наличии</p>
+            {% endif %}
+        </a>
+        {% endfor %}
+
+    </div>
+</section>
+{% endblock %}
