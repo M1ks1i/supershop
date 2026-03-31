@@ -22,6 +22,8 @@ from app import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from app.views import cart_detail
+
 admin.site.site_header = 'Мой интернет магазин'
 admin.site.index_title = 'Добро пожаловать в панель управления'
 
@@ -47,4 +49,8 @@ urlpatterns = [
 
     # Админ-панель Django
     path('admin/', admin.site.urls),
+
+    # Корзина
+    path('cart_detail/', views.cart_detail, name='cart_detail' ),
+    path('cart_add/<int:product_id>/', views.cart_add, name='cart_add')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

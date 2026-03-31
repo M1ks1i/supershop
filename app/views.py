@@ -1,8 +1,8 @@
 from itertools import product
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-from app.models import Product, Category
+from app.models import Product, Category, Review
 
 
 def index(request):
@@ -16,11 +16,22 @@ def category_list(request):
 def product_list(request):
     pass
 
-def product_detail(request):
-    pass
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    # rating = get_object_or_404(Review, pk=product_id)
+    # rating = rating.rating * '4'
+    review = product.review_set.all()
+    return render(request, 'product_detail.html', context={'product': product, 'review':review})
 
 def login_view(request):
     pass
 
 def register_view(request):
     pass
+
+def cart_detail(request):
+    return render(request, 'cart.html')
+
+def cart_add(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    return render(request, 'product_detail.html', context={'product': product})

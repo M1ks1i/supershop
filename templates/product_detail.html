@@ -1,5 +1,5 @@
-{% load static %}
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
@@ -29,9 +29,13 @@
             <p class="text-red-500 mb-4">Нет в наличии</p>
             {% endif %}
 
-            <button class="px-6 py-3 rounded bg-accentGreen hover:bg-accentYellow text-black font-semibold transition">
-                Добавить в корзину
-            </button>
+            <form action="{% url 'cart_add' product.pk %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="px-6 py-3 rounded bg-accentGreen hover:bg-accentYellow text-black font-semibold transition">
+                    Добавить в корзину
+                </button>
+            </form>
         </div>
     </div>
 
@@ -48,6 +52,16 @@
                         {% for i in "12345"|slice:":review.rating" %}
                             ⭐
                         {% endfor %}
+                        {% for i in "12345"|slice:":5-review.rating" %}
+                            🌟
+                        {% endfor %}
+<!--                        {% for i in rating %}-->
+<!--                            {% if i < review.rating %}-->
+<!--                                ❌-->
+<!--                            {% else %}-->
+<!--                                ⭐-->
+<!--                            {% endif %}-->
+<!--                        {% endfor %}-->
                     </span>
                 </div>
 

@@ -35,5 +35,9 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     author = models.CharField(max_length=100)
     text = models.TextField()
-    rating = models.IntegerField()
+    rating = models.PositiveSmallIntegerField()
 
+class Cartlist(models.Model):
+    order_id = models.AutoField()
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
