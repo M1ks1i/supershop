@@ -52,5 +52,7 @@ urlpatterns = [
 
     # Корзина
     path('cart_detail/', views.cart_detail, name='cart_detail' ),
-    path('cart_add/<int:product_id>/', views.cart_add, name='cart_add')
+    path('cart_add/<int:product_id>/', views.cart_add, name='cart_add'),
+    path('cart_remove/<int:item_id>/', views.cart_remove, name='cart_remove'),
+    path('order_create/', views.order_create, name='order_create'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
