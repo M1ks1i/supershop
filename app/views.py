@@ -2,7 +2,7 @@ from itertools import product
 
 from django.shortcuts import render, get_object_or_404, redirect
 
-from app.models import Product, Category, Review, Cart, Cartitem
+from app.models import Product, Category, Review, Order, OrderItem, CartItem
 
 
 def index(request):
@@ -36,13 +36,13 @@ def get_cart(request):
     if not session_key:
         request.session.create()
         session_key = request.session.session_key
-    cart, created = Cart.objects.get_or_create(session_key=session_key)
+    cart, created = CartItem.objects.get_or_create(session_key=session_key)
     return cart
 
 def cart_add(request, product_id):
     cart = get_cart(request)
     product = get_object_or_404(Product, pk=product_id)
-    item, created = Cartitem.objects.get_or_create(
+    item, created = OrderItem.objects.get_or_create(
         cart=cart,
         product=product,
         defaults={'quantity': 1}
@@ -58,7 +58,7 @@ def cart_detail(request):
     return render(request, 'cart.html', {'cart': cart})
 
 def cart_remove(request, item_id):
-    item = get_object_or_404(Cartitem, id = item_id)
+    item = get_object_or_404(OrderItem, id = item_id)
     item.delete()
     return redirect('cart_detail')
 

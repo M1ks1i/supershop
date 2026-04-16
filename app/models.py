@@ -80,6 +80,25 @@ class Order(models.Model):
         (STATUS_DELIVERED, 'доставлено'),
         (STATUS_FAILED, 'ошибка оплаты')
     ]
+    order_number = models.CharField(max_length=50, unique=True, verbose_name = 'order_number')
+    buyer_name = models.CharField(max_length=200)
+    buyer_email = models.EmailField()
+    buyer_phone = models.CharField(max_length=20)
+    delv_adress = models.TextField(blank=True)
+    total_amount = models.DecimalField(max_digits=10,decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING)
+    liqpay_payment_id = models.CharField(max_length=255, blank=True)
+    liqpay_status = models.CharField(max_length=50, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta():
+        verbose_name = 'order'
+        verbose_name_plural = 'orders'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'order #{self.order_number} - {self.buyer_name}'
 
 class OrderItem(models.Model):
     order = models.ForeignKey(
@@ -90,7 +109,7 @@ class OrderItem(models.Model):
     )
     product = models.ForeignKey(
         Product,
-        on_delete = models.SET_NULL(),
+        on_delete = models.SET_NULL,
         null = True,
         related_name = 'cart_items'
     )
